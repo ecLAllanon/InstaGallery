@@ -2,10 +2,11 @@
 
 $realm = 'Photo Gallery';
 $errorMessage = "Sorry, you must log in to view this gallery";
-$users = Array(
-    'username' => 'password',
-    'username2' => 'password2'
-    ); // Array('username' => 'password');
+$users = Array();
+//$users = Array(
+//    'username' => 'password',
+//    'username2' => 'password2'
+//    ); // Array('username' => 'password');
 
 // function to parse the http auth header
 function http_digest_parse($txt)
@@ -32,7 +33,7 @@ if(isset($_REQUEST['a']) && $_REQUEST['a'] == 'logout'){
     exit();
 }
 
-if(count($users) > 0){
+if(is_countable($users) && count($users) > 0){
     if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
         header('HTTP/1.1 401 Unauthorized'); header('WWW-Authenticate: Digest realm="'.$realm.  '",qop="auth",nonce="'.uniqid().'",opaque="'.md5($realm).'"');
         die($errorMessage);
